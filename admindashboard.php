@@ -1571,7 +1571,7 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     
     // Replace the addNotification function in admindashboard.php with this:
 
-async function addNotification() {
+  async function addNotification() {
   const title = document.getElementById('notifTitle').value;
   const date = document.getElementById('notifDate').value;
   const description = document.getElementById('notifDescription').value;
@@ -1615,8 +1615,8 @@ async function addNotification() {
       document.getElementById('notifDescription').value = '';
       document.getElementById('notificationForm').classList.add('hidden');
       
-      // Reload notifications
-      await loadNotifications();
+    // Reload notifications
+    await loadNotifications();
       
       alert('Notification added successfully!');
     } else {
@@ -1624,11 +1624,11 @@ async function addNotification() {
       console.error('Error details:', result);
       alert('Error: ' + (result.error || result.message || 'Failed to add notification. Check console for details.'));
     }
-  } catch (err) {
-    console.error('Error adding notification:', err);
-    alert('Network error: ' + err.message + '. Check if api_add_notification.php exists and the database is running.');
-  }
-}
+      } catch (err) {
+        console.error('Error adding notification:', err);
+        alert('Network error: ' + err.message + '. Check if api_add_notification.php exists and the database is running.');
+      }
+    }
 
     // Submit notification
     document.getElementById('submitNotificationBtn').addEventListener('click', addNotification);
@@ -1639,12 +1639,10 @@ async function addNotification() {
       renderNotifications();
     });
     
-    // Header buttons
     document.getElementById('auditBtn').addEventListener('click', () => {
       window.location.href = 'audit_trail.php';
     });
 
-    // Header buttons
     document.getElementById('accBtn').addEventListener('click', () => {
       window.location.href = 'account_approval.php';
     });
@@ -1653,14 +1651,26 @@ async function addNotification() {
       window.location.href = 'ReqDet&Upd.php';
     });
     
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      window.location.href = 'sign-in.php';
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+    try {
+    const formData = new FormData();
+    formData.append('logout', 'true');
+    
+    await fetch(window.location.href, {
+      method: 'POST',
+      body: formData
     });
     
-    // Auto-refresh
+      window.location.href = 'sign-in.php';
+      } catch (err) {
+        console.error('Logout error:', err);
+        window.location.href = 'sign-in.php';
+      }
+    });
+    
     setInterval(loadRequests, 30000);
-    setInterval(() => updateAnalyticsChart(currentTimeframe), 30000);
-  });
+      setInterval(() => updateAnalyticsChart(currentTimeframe), 30000);
+    });
   </script>
 </body>
 </html>
