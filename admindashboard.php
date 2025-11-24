@@ -886,7 +886,6 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
     <div class="header-actions">
       <button class="btn" id="auditBtn">Audit Trail</button>
       <button class="btn" id="accBtn">Account Management</button>
-      <button class="btn" id="requestBtn">Request</button>
       <button class="btn logout" id="logoutBtn">Logout</button>
     </div>
   </div>
@@ -1645,10 +1644,6 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
 
     document.getElementById('accBtn').addEventListener('click', () => {
       window.location.href = 'account_approval.php';
-    });
-
-    document.getElementById('requestBtn').addEventListener('click', () => {
-      window.location.href = 'ReqDet&Upd.php';
     });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
